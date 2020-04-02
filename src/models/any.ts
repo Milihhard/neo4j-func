@@ -1,6 +1,6 @@
-import { define } from "./decorators/define";
-import { EntityTypeEnum } from "./enum/entityTypeEnum";
 import EntityNeo4J from "./entityNeo4j";
+import { EntityTypeEnum } from "../enum/entityTypeEnum";
+import { define } from "../decorators";
 
 
 export default function anyEntity(): AnyDefinition { return new AnyDefinition() };

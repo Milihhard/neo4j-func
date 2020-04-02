@@ -1,6 +1,6 @@
 import Neo4jCommand from './commandsNeo4j';
-import GuidNeo4J from './neo4jGuid';
-import PropertyDefinition from './propertyDefinition';
+import GuidNeo4J from '../utils/neo4jGuid';
+import PropertyDefinition from '../models/propertyDefinition';
 
 
 

@@ -1,5 +1,5 @@
-import GuidNeo4J from "./neo4jGuid";
 import PropertyDefinition from "./propertyDefinition";
+import GuidNeo4J from "../utils/neo4jGuid";
 
 export default abstract class EntityNeo4J {
     public _id: string;

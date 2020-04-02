@@ -1,4 +1,4 @@
-import NodeNeo4J from "./nodeNeo4j";
+import NodeNeo4J from "../models/nodeNeo4j";
 
 export function notNull(target: any, propertyKey: string): void {
     Validator.registerNotNull(target.constructor.name, propertyKey);

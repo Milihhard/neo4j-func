@@ -1,19 +1,18 @@
-import NodeNeo4J from './nodeNeo4j';
+import NodeNeo4J from '../models/nodeNeo4j';
 import Neo4jCondition from './conditionNeo4j';
-import GuidNeo4J from './neo4jGuid';
-import PropertyDefinition from './propertyDefinition';
-import Neo4jService from './neo4j';
+import GuidNeo4J from '../utils/neo4jGuid';
+import PropertyDefinition from '../models/propertyDefinition';
+import Neo4jService from '../neo4j';
 import { Record } from 'neo4j-driver/types';
-import { Validator } from './validator';
+import { Validator } from '../utils/validator';
 import ReturnValue from './returnValue';
-import { LinkChain, LinkResult } from './linking';
-import EntityNeo4J from './entityNeo4j';
-import { isEntity, isPropertyDefinition, isAny } from './typePredicate';
+import { LinkChain, LinkResult } from '../models/linking';
+import { isEntity, isPropertyDefinition, isAny } from '../utils/typePredicate';
 import ReturnType from './returnType';
-import { ReturnTypeEnum } from './enum/returnTypeEnum';
-import EntityFactory from './entityFactory';
+import { ReturnTypeEnum } from '../enum/returnTypeEnum';
 import ReturnLabel from './returnLabel';
 import ReturnResult from './returnResult';
+import EntityNeo4J from '../models/entityNeo4j';
 
 
 export default class Neo4jCommand {
