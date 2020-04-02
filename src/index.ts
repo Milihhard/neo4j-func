@@ -23,8 +23,10 @@ export { LinkingTo } from './models/linkingTo';
 import ReturnLabel from './commands/returnLabel'
 import ReturnType from './commands/returnType'
 import ReturnValue from './commands/returnValue'
+import ReturnResult from './commands/returnResult'
 export {
     ReturnLabel,
+    ReturnResult,
     ReturnType,
     ReturnValue,
     Neo4jCommand,
