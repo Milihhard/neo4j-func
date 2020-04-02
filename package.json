@@ -2,7 +2,7 @@
   "name": "neo4j-func",
   "description": "Wrapper for neo4j tu use it in a functionnal way",
   "homepage": "https://github.com/Milihhard/neo4j-func#readme",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "keywords": [
     "neo4j",
     "typescript"
