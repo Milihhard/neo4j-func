@@ -3,7 +3,7 @@ import NodeNeo4J from "../models/nodeNeo4j";
 import PropertyDefinition from "../models/propertyDefinition";
 import ReturnResult from "./returnResult";
 import Neo4jCondition from "./conditionNeo4j";
-import ID from "./functions/IdNeo4j";
+import ID from "./functions/idNeo4j";
 
 export default class Neo4jCommandFactory {
 
