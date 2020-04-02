@@ -2,6 +2,7 @@ import { EntityTypeEnum } from "../enum/entityTypeEnum";
 import EntityFactory from "../models/entityFactory";
 import NodeNeo4J from "../models/nodeNeo4j";
 import PropertyDefinition from "../models/propertyDefinition";
+import { Validator } from "../utils/validator";
 
 export function define(attr: string, type: EntityTypeEnum): (...args: any[]) => any {
 
@@ -45,4 +46,8 @@ export function property(): any {
             configurable: true,
         });
     }
+}
+
+export function notNull(target: any, propertyKey: string): void {
+    Validator.registerNotNull(target.constructor.name, propertyKey);
 }

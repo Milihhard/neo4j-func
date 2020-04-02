@@ -1,9 +1,5 @@
 import NodeNeo4J from "../models/nodeNeo4j";
 
-export function notNull(target: any, propertyKey: string): void {
-    Validator.registerNotNull(target.constructor.name, propertyKey);
-}
-
 export interface ValidatorResponse {
     valid: boolean;
     property?: string;

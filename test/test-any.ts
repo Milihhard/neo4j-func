@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import anyEntity from '../src/any'
+import anyEntity from '../src/models/any'
 
 describe('Any', function() { 
     let any = anyEntity();

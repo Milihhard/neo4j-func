@@ -13,6 +13,7 @@ import { ReturnTypeEnum } from '../enum/returnTypeEnum';
 import ReturnLabel from './returnLabel';
 import ReturnResult from './returnResult';
 import EntityNeo4J from '../models/entityNeo4j';
+import EntityFactory from '../models/entityFactory';
 
 
 export default class Neo4jCommand {
