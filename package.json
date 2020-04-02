@@ -1,5 +1,5 @@
 {
-  "name": "neo4j-wrapper",
+  "name": "neo4j-func",
   "version": "1.0.0",
   "description": "Wrapper for neo4j tu use it in a functionnal way",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Milihhard/neo4j-wrapper.git"
+    "url": "git+https://github.com/Milihhard/neo4j-func.git"
   },
   "keywords": [
     "neo4j",
@@ -21,9 +21,9 @@
   "author": "Milihhard",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Milihhard/neo4j-wrapper/issues"
+    "url": "https://github.com/Milihhard/neo4j-func/issues"
   },
-  "homepage": "https://github.com/Milihhard/neo4j-wrapper#readme",
+  "homepage": "https://github.com/Milihhard/neo4j-func#readme",
   "dependencies": {
     "guid-typescript": "^1.0.9",
     "neo4j-driver": "^4.0.0"
