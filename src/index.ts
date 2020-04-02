@@ -24,6 +24,7 @@ import ReturnLabel from './commands/returnLabel'
 import ReturnType from './commands/returnType'
 import ReturnValue from './commands/returnValue'
 import ReturnResult from './commands/returnResult'
+import anyEntity from './models/any';
 export {
     ReturnLabel,
     ReturnResult,
@@ -31,6 +32,7 @@ export {
     ReturnValue,
     Neo4jCommand,
     Neo4jCondition,
+    anyEntity,
     ID,
     Neo4jCommandFactory,
     EntityFactory,
