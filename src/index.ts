@@ -64,6 +64,7 @@ export {
     commands,
     decorators,
     enumarations,
+    models,
     utils,
     Neo4jService,
 }
