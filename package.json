@@ -20,7 +20,8 @@
     "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "src/**/*"
   ],
   "repository": {
     "type": "git",
