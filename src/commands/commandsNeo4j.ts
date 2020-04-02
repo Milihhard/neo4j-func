@@ -189,17 +189,17 @@ export default class Neo4jCommand {
                     node: {
                         name: segment.start.labels[0],
                         id: segment.start.identity.low,
-                        value: EntityFactory.createInstance(segment.start.labels[0], segment.start.properties)
+                        value: EntityFactory.createInstance(segment.start.labels[0], segment.start.identity.low, segment.start.properties)
                     },
                     link: {
                         name: segment.relationship.type,
                         id: segment.relationship.identity.low,
-                        value: EntityFactory.createInstance(segment.relationship.type, segment.relationship.properties)
+                        value: EntityFactory.createInstance(segment.relationship.type, segment.relationship.identity.low, segment.relationship.properties)
                     },
                     to: {
                         name: segment.end.labels[0],
                         id: segment.end.identity.low,
-                        value: EntityFactory.createInstance(segment.end.labels[0], segment.end.properties)
+                        value: EntityFactory.createInstance(segment.end.labels[0], segment.end.identity.low, segment.end.properties)
                     },
                 };
                 break;

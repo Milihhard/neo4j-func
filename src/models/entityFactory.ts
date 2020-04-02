@@ -5,7 +5,7 @@ export default class EntityFactory {
     private static links: Map<string, any> = new Map();
 
 
-    static createInstance(entityName: string, args?: any): EntityNeo4J {
+    static createInstance(entityName: string, id: string, args?: any): EntityNeo4J {
         const argsToCreate = [];
         if (args) {
             for (const arg of Object.keys(args)) {
@@ -14,6 +14,7 @@ export default class EntityFactory {
         }
         const className = this.nodes.get(entityName) ?? this.links.get(entityName)
         const obj = new className(...argsToCreate);
+        obj._id = id;
         return obj;
     }
 
