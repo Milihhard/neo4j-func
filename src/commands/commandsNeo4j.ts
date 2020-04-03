@@ -179,8 +179,7 @@ export default class Neo4jCommand {
         const data: any = record.get(returnLabel.label);
         switch (returnLabel.returnType) {
             case ReturnTypeEnum.NODE:
-                const instance = EntityFactory.createInstance(data.labels[0], data.properties);
-                instance._id = data.identity.low;
+                const instance = EntityFactory.createInstance(data.labels[0], data.identity.low, data.properties);
                 return instance;
             case ReturnTypeEnum.LINK:
                 const segment = data[0].segments[0];
@@ -206,7 +205,6 @@ export default class Neo4jCommand {
             case ReturnTypeEnum.PROPERTY:
                 return data;
         }
-        return data;
     }
 
     get command(): string {
