@@ -1,6 +1,10 @@
 
 import * as neo4jModule from 'neo4j-driver';
 import { Driver, QueryResult } from 'neo4j-driver/types/';
+import yaml from 'js-yaml';
+import fs from 'fs';
+import Neo4jConfig from './config/config';
+import _ from 'lodash';
 
 const neo4j = neo4jModule;
 
@@ -8,9 +12,25 @@ const neo4j = neo4jModule;
 export default class Neo4jService {
     driver: Driver;
     private static instance: Neo4jService;
+    config: Neo4jConfig;
 
     constructor() {
-        this.driver = neo4j.driver('bolt://0.0.0.0:7687', neo4j.auth.basic('neo4j', 'neo4j'));
+        // Get document, or throw exception on error
+        let configCustom: Neo4jConfig;
+        let configDefault: Neo4jConfig;
+        try {
+            configCustom = yaml.safeLoad(fs.readFileSync(process.cwd() + '/neo4j.yaml', 'utf8'))
+        } catch (e) {
+            configCustom = {};
+        }
+        try {
+            configDefault = yaml.safeLoad(fs.readFileSync(__dirname + '/config/neo4j-default.yaml', 'utf8'));
+        } catch (e) {
+            throw new Error(e);
+        }
+        this.config = _.merge(configDefault, configCustom);
+        this.driver = neo4j.driver(`bolt://${this.config.host}:${this.config.port}`,
+        neo4j.auth.basic(this.config.credentials.user, this.config.credentials.password));
     }
 
     runCommand(command: string, attribute: any): Promise<QueryResult> {

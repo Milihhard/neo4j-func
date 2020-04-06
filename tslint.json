@@ -5,7 +5,7 @@
     ],
     "jsRules": {},
     "rules": {
-        "trailing-comma": [ false ],
+        "trailing-comma": [ true ],
         "typedef": [true, "call-signature", "parameter", "member-variable-declaration"]
     },
     "rulesDirectory": []
