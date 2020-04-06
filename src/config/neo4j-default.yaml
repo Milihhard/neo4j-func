@@ -1,5 +1,0 @@
-host: 0.0.0.0
-port: 7687
-credentials:
-    user: neo4j
-    password: neo4j
