@@ -18,6 +18,16 @@ $yarn add neo4j-func
 
 ## Usage ##
 
+### define the config file ###
+```yaml
+# neo4j.yaml
+host: 0.0.0.0
+port: 7687
+credentials:
+    user: neo4j
+    password: neo4j
+```
+
 ### define your nodes and links
 
 For a node :
