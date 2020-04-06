@@ -1,18 +1,6 @@
 import {expect} from 'chai';
 import Neo4jService from '../src/neo4j';
-
-before((done) => {
-    Neo4jService.getInstance()
-        .runCommand(
-            'MATCH(n) \
-        OPTIONAL MATCH (n)-[l]->()\
-        DELETE n, l',
-            {}
-        )
-        .finally(() => {
-            done();
-        });
-});
+import clearDatabase from './clearDatabase';
 
 describe('Neo4jService', () => {
     const neo4j = Neo4jService.getInstance();
@@ -25,6 +13,9 @@ describe('Neo4jService', () => {
         });
     });
     describe('commands', () => {
+        beforeEach((done) => {
+            clearDatabase(done);
+        });
         it('Should run the command', (done) => {
             neo4j
                 .runCommand('MATCH (n) RETURN n', {})
