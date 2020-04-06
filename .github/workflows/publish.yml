@@ -18,7 +18,7 @@ jobs:
             - run: npm ci
             - run: npm publish
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
         services:
             neo4j:
                 image: neo4j:4.0.0
@@ -39,7 +39,7 @@ jobs:
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        services:
+            services:
             neo4j:
                 image: neo4j:4.0.0
                 env:
