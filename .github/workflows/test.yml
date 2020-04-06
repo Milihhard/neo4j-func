@@ -30,7 +30,7 @@ jobs:
             - name: Unit test
               run: npm run test:report:lcov
             - name: Coveralls
-              if: github.head_ref == Null
+              if: github.head_ref == null
               uses: coverallsapp/github-action@master
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
