@@ -1,24 +1,26 @@
-# neo4j-func #
+# neo4j-func
 
-neo4j-func is a neo4j wrapper for node.js   
-It helps making queries by using a functional approach  
+[![Coverage Status](https://coveralls.io/repos/github/Milihhard/neo4j-func/badge.svg?branch=develop)](https://coveralls.io/github/Milihhard/neo4j-func?branch=develop)
 
+neo4j-func is a neo4j wrapper for node.js  
+It helps making queries by using a functional approach
 
-## Installation ##
+## Installation
 
-``` bash
+```bash
 $npm install neo4j-func
 ```
 
 or
 
-``` bash
+```bash
 $yarn add neo4j-func
 ```
 
-## Usage ##
+## Usage
 
-### define the config file ###
+### define the config file
+
 ```yaml
 # neo4j.yaml
 host: 0.0.0.0
@@ -31,7 +33,8 @@ credentials:
 ### define your nodes and links
 
 For a node :
-``` typescript
+
+```typescript
 @node('MyNode')
 class MyNode extends NodeNeo4J {
     @property()
@@ -45,8 +48,10 @@ class MyNode extends NodeNeo4J {
     }
 }
 ```
+
 For a link :
-``` typescript
+
+```typescript
 @node('MyLink')
 class MyLink extends LinkNeo4J {
     @property()
@@ -61,16 +66,18 @@ class MyLink extends LinkNeo4J {
 }
 ```
 
-### run you command ###
-``` typescript
+### run you command
+
+```typescript
 const myNode = new MyNode('mandatory', 'optionnal');
 new Neo4jCommand()
     .match(myNode)
-    .where(ID(myNode)).equals(myNode.value(myNode.property2))
+    .where(ID(myNode))
+    .equals(myNode.value(myNode.property2))
     .returnValue(node)
     .run()
-    .then(result => 
-        result.records[0].map(record => {
+    .then((result) =>
+        result.records[0].map((record) => {
             if (result.records.length > 0) {
                 return result.records[0].MyNode as MyNode;
             } else {
@@ -79,4 +86,5 @@ new Neo4jCommand()
         })
     );
 ```
+
 `.run` return a promise
