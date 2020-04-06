@@ -29,9 +29,13 @@ jobs:
               run: npm ci
             - name: Unit test
               run: npm run test:report
-            - name: Coverage
-              run: npm run test:coverage
+            - name: Unit test
+              run: npm run test:report:lcov
+            - name: Coveralls
               if: github.ref == 'refs/heads/master'
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
         services:
             neo4j:
                 image: neo4j:4.0.0
