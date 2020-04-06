@@ -1,0 +1,36 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Testing app
+on:
+    push:
+        branches:
+            - master
+            - develop
+    pull_request:
+        branches:
+            - master
+            - develop
+jobs:
+    test:
+        name: Unit test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - run: npm ci
+            - run: npm test
+    lint:
+        name: Lint
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - run: npm ci
+            - run: npm run lint
+    coverage:
+        name: Coverage - Coveralls
+        runs-on: ubuntu-latest
+        needs: [test, lint]
+        steps:
+            - uses: actions/checkout@v1
+            - run: npm ci
+            - run: npm run coverage
