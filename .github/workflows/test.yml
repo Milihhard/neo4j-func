@@ -31,6 +31,7 @@ jobs:
               run: npm test
             - name: Coverage
               run: npm run coverage
+              if: github.ref == 'master'
         services:
             neo4j:
                 image: neo4j:4.0.0
