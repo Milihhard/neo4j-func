@@ -1,48 +1,62 @@
 {
-  "name": "neo4j-func",
-  "description": "Wrapper for neo4j tu use it in a functionnal way",
-  "homepage": "https://github.com/Milihhard/neo4j-func#readme",
-  "version": "1.0.12",
-  "keywords": [
-    "neo4j",
-    "typescript"
-  ],
-  "author": "Milihhard",
-  "license": "ISC",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
-    "prepare": "tsc",
-    "prepublishOnly": "npm test",
-    "declare": "tsc --declaration",
-    "test": "mocha -r ts-node/register test/**/*.ts"
-  },
-  "files": [
-    "dist/**/*",
-    "src/**/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Milihhard/neo4j-func.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Milihhard/neo4j-func/issues"
-  },
-  "dependencies": {
-    "guid-typescript": "^1.0.9",
-    "neo4j-driver": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/debug": "^4.1.5",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^13.7.1",
-    "chai": "^4.2.0",
-    "mocha": "^7.1.1",
-    "ts-node": "^8.8.1",
-    "tslint": "^6.0.0",
-    "typescript": "^3.7.5"
-  }
+    "name": "neo4j-func",
+    "description": "Wrapper for neo4j tu use it in a functionnal way",
+    "homepage": "https://github.com/Milihhard/neo4j-func#readme",
+    "version": "1.1.0",
+    "keywords": [
+        "neo4j",
+        "typescript"
+    ],
+    "author": "Milihhard",
+    "license": "ISC",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+        "build": "tsc",
+        "prepare": "tsc",
+        "prepublishOnly": "npm test",
+        "declare": "tsc --declaration",
+        "lint": "tslint -c tslint.json -p tsconfig.json",
+        "lint:fix": "tslint -c tslint.json -p tsconfig.json --fix",
+        "lint:check": "tslint-config-prettier-check ./tslint.json",
+        "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
+        "test": "nyc --reporter=html --reporter=text mocha -r ts-node/register test/**/*.ts",
+        "coverage": "nyc report --reporter=text-lcov | coveralls"
+    },
+    "files": [
+        "dist/**/*",
+        "src/**/*"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Milihhard/neo4j-func.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Milihhard/neo4j-func/issues"
+    },
+    "dependencies": {
+        "@types/js-yaml": "^3.12.3",
+        "@types/lodash": "^4.14.149",
+        "guid-typescript": "^1.0.9",
+        "js-yaml": "^3.13.1",
+        "lodash": "^4.17.15",
+        "neo4j-driver": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/debug": "^4.1.5",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.7.1",
+        "chai": "^4.2.0",
+        "coveralls": "^3.0.11",
+        "mocha": "^7.1.1",
+        "nyc": "^15.0.1",
+        "prettier": "^2.0.2",
+        "ts-node": "^8.8.1",
+        "tslint": "^6.0.0",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-no-unused-expression-chai": "^0.1.4",
+        "typescript": "^3.7.5"
+    }
 }

@@ -1,11 +1,13 @@
 {
     "defaultSeverity": "warning",
     "extends": [
-        "tslint:recommended"
+        "tslint:recommended",
+        "tslint-no-unused-expression-chai",
+        "tslint-config-prettier"
     ],
     "jsRules": {},
     "rules": {
-        "trailing-comma": [ false ],
+        "trailing-comma": [false],
         "typedef": [true, "call-signature", "parameter", "member-variable-declaration"]
     },
     "rulesDirectory": []
