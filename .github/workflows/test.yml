@@ -28,8 +28,6 @@ jobs:
             - name: Setup
               run: npm ci
             - name: Unit test
-              run: npm run test:report
-            - name: Unit test
               run: npm run test:report:lcov
             - name: Coveralls
               if: github.ref == 'refs/heads/master'
