@@ -28,9 +28,9 @@ jobs:
             - name: Setup
               run: npm ci
             - name: Unit test
-              run: npm test
+              run: npm run test:report
             - name: Coverage
-              run: npm run coverage
+              run: npm run test:coverage
               if: github.ref == 'master'
         services:
             neo4j:
