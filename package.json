@@ -23,7 +23,8 @@
         "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
         "test": "mocha  --timeout=30000 -r ts-node/register test/**/test-*.ts",
         "test:report": "nyc --reporter=html --reporter=text mocha  --timeout=30000 -r ts-node/register test/**/test-*.ts",
-        "test:coverage": "nyc report --reporter=text-lcov | coveralls"
+        "test:report:lcov": "nyc report --reporter=text-lcov",
+        "test:coveralls": "nyc report --reporter=text-lcov | coveralls"
     },
     "files": [
         "dist/**/*",
