@@ -1,6 +1,6 @@
 # neo4j-func
 
-[![Coverage Status](https://coveralls.io/repos/github/Milihhard/neo4j-func/badge.svg?branch=develop)](https://coveralls.io/github/Milihhard/neo4j-func?branch=develop) ![Testing app](https://github.com/Milihhard/neo4j-func/workflows/Testing%20app/badge.svg) ![Building](https://github.com/Milihhard/neo4j-func/workflows/Building/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/Milihhard/neo4j-func/badge.svg?branch=develop)](https://coveralls.io/github/Milihhard/neo4j-func?branch=develop) ![Testing app](https://github.com/Milihhard/neo4j-func/workflows/Testing%20app/badge.svg) ![Building](https://github.com/Milihhard/neo4j-func/workflows/Building/badge.svg) ![Publish to npm](https://github.com/Milihhard/neo4j-func/workflows/Publish%20to%20npm/badge.svg)
 
 neo4j-func is a neo4j wrapper for node.js  
 It helps making queries by using a functional approach

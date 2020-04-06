@@ -19,6 +19,13 @@ jobs:
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+        services:
+            neo4j:
+                image: neo4j:4.0.0
+                env:
+                    NEO4J_AUTH: neo4j/test
+                ports:
+                    - 7687:7687
 
     publish-gpr:
         runs-on: ubuntu-latest
@@ -32,3 +39,10 @@ jobs:
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        services:
+            neo4j:
+                image: neo4j:4.0.0
+                env:
+                    NEO4J_AUTH: neo4j/test
+                ports:
+                    - 7687:7687
