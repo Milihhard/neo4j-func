@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import anyEntity from '../src/models/any'
 
-describe('Any', function() { 
-    let any = anyEntity();
-    it('should be any', function() {
-      expect(any.isAny()).to.be.true;
+describe('Any', () => {
+    const anyEnt = anyEntity();
+    it('should be any', () => {
+      expect(anyEnt.isAny()).to.be.true;
     });
-    it('should be name Any', function() {
-      expect(any.entityName).to.equal('Any');
+    it('should be name Any', () => {
+      expect(anyEnt.entityName).to.equal('Any');
     });
 });
