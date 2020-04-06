@@ -4,6 +4,7 @@ import yaml from 'js-yaml';
 import fs from 'fs';
 import Neo4jConfig from './config/config';
 import _ from 'lodash';
+import configDefault from './config/neo4j-default';
 
 const neo4j = neo4jModule;
 
@@ -15,20 +16,12 @@ export default class Neo4jService {
     constructor() {
         // Get document, or throw exception on error
         let configCustom: Neo4jConfig;
-        let configDefault: Neo4jConfig;
         try {
             configCustom = yaml.safeLoad(
                 fs.readFileSync(process.cwd() + '/neo4j.yaml', 'utf8')
             );
         } catch (e) {
             configCustom = {};
-        }
-        try {
-            configDefault = yaml.safeLoad(
-                fs.readFileSync(__dirname + '/config/neo4j-default.yaml', 'utf8')
-            );
-        } catch (e) {
-            throw new Error(e);
         }
         this.config = _.merge(configDefault, configCustom);
         this.driver = neo4j.driver(
