@@ -22,7 +22,7 @@ jobs:
         services:
             neo4j:
                 image: neo4j:4.0.0
-                environment:
+                env:
                     NEO4J_AUTH: neo4j/test
                 ports:
                     - 7687:7687
@@ -44,7 +44,7 @@ jobs:
         services:
             neo4j:
                 image: neo4j:4.0.0
-                environment:
+                env:
                     NEO4J_AUTH: neo4j/test
                 ports:
                     - 7687:7687
