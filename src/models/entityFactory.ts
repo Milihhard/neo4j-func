@@ -1,9 +1,8 @@
-import EntityNeo4J from "./entityNeo4j";
+import EntityNeo4J from './entityNeo4j';
 
 export default class EntityFactory {
     private static nodes: Map<string, any> = new Map();
     private static links: Map<string, any> = new Map();
-
 
     static createInstance(entityName: string, id: string, args?: any): EntityNeo4J {
         const argsToCreate = [];
@@ -12,7 +11,7 @@ export default class EntityFactory {
                 argsToCreate.push(args[arg]);
             }
         }
-        const className = this.nodes.get(entityName) ?? this.links.get(entityName)
+        const className = this.nodes.get(entityName) ?? this.links.get(entityName);
         const obj = new className(...argsToCreate);
         obj._id = id;
         return obj;

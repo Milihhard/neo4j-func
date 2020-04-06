@@ -1,4 +1,4 @@
-import NodeNeo4J from "../models/nodeNeo4j";
+import NodeNeo4J from '../models/nodeNeo4j';
 
 export interface ValidatorResponse {
     valid: boolean;
@@ -19,7 +19,7 @@ export class Validator {
     static validate(target: NodeNeo4J): ValidatorResponse {
         const notNullProps: string[] = this.notNullValidatorMap.get(target.entityName);
         if (!notNullProps) {
-            return { valid: true };
+            return {valid: true};
         }
         let valid: boolean = true;
         const props: string[] = [];
@@ -30,6 +30,6 @@ export class Validator {
                 props.push(property);
             }
         }
-        return { valid, property: props.join(', ') };
+        return {valid, property: props.join(', ')};
     }
 }

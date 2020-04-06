@@ -1,4 +1,4 @@
-import EntityNeo4J from "./entityNeo4j";
+import EntityNeo4J from './entityNeo4j';
 
 export default class PropertyDefinition<T> {
     from: EntityNeo4J;
@@ -10,7 +10,7 @@ export default class PropertyDefinition<T> {
     }
 
     getProperty(): string {
-        return `${this.from.guid}.${this.property}`
+        return `${this.from.guid}.${this.property}`;
     }
 
     isPropertyDefinition(): boolean {

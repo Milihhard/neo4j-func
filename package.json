@@ -2,7 +2,7 @@
     "name": "neo4j-func",
     "description": "Wrapper for neo4j tu use it in a functionnal way",
     "homepage": "https://github.com/Milihhard/neo4j-func#readme",
-    "version": "1.1.9",
+    "version": "1.2.0",
     "keywords": [
         "neo4j",
         "typescript"
@@ -21,8 +21,9 @@
         "lint:fix": "tslint -c tslint.json -p tsconfig.json --fix",
         "lint:check": "tslint-config-prettier-check ./tslint.json",
         "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
-        "test": "nyc --reporter=html --reporter=text mocha  --timeout=30000 -r ts-node/register test/**/*.ts",
-        "coverage": "nyc report --reporter=text-lcov | coveralls"
+        "test": "mocha  --timeout=30000 -r ts-node/register test/**/test-*.ts",
+        "test:report": "nyc --reporter=html --reporter=text mocha  --timeout=30000 -r ts-node/register test/**/test-*.ts",
+        "test:coverage": "nyc report --reporter=text-lcov | coveralls"
     },
     "files": [
         "dist/**/*",

@@ -1,17 +1,16 @@
-import { EntityTypeEnum } from "../enum/entityTypeEnum";
-import EntityFactory from "../models/entityFactory";
-import NodeNeo4J from "../models/nodeNeo4j";
-import PropertyDefinition from "../models/propertyDefinition";
-import { Validator } from "../utils/validator";
+import {EntityTypeEnum} from '../enum/entityTypeEnum';
+import EntityFactory from '../models/entityFactory';
+import NodeNeo4J from '../models/nodeNeo4j';
+import PropertyDefinition from '../models/propertyDefinition';
+import {Validator} from '../utils/validator';
 
 export function define(attr: string, type: EntityTypeEnum): (...args: any[]) => any {
-
     return function _DecoratorName(constr: any): any {
         const updatedObject = class extends constr {
             constructor(...args: any[]) {
                 super(...args);
                 (this as any)._entityName = attr;
-                let index = 0
+                let index = 0;
                 for (const b in this) {
                     if (b[0] !== '_') {
                         (this as any)._properties.set(b, args[index]);
@@ -19,7 +18,7 @@ export function define(attr: string, type: EntityTypeEnum): (...args: any[]) => 
                     }
                 }
             }
-        }
+        };
         if (type === EntityTypeEnum.NODE) {
             EntityFactory.addNode(attr, updatedObject);
         } else {
@@ -27,7 +26,7 @@ export function define(attr: string, type: EntityTypeEnum): (...args: any[]) => 
         }
 
         return updatedObject;
-    }
+    };
 }
 
 export function link(attr: any): (...args: any[]) => any {
@@ -45,7 +44,7 @@ export function property(): any {
             enumerable: true,
             configurable: true,
         });
-    }
+    };
 }
 
 export function notNull(target: any, propertyKey: string): void {

@@ -1,8 +1,8 @@
-import NodeNeo4J from "./nodeNeo4j";
-import LinkNeo4J from "./linkNeo4j";
-import PropertyDefinition from "./propertyDefinition";
-import EntityNeo4J from "./entityNeo4j";
-import { LinkingTo } from "./linkingTo";
+import NodeNeo4J from './nodeNeo4j';
+import LinkNeo4J from './linkNeo4j';
+import PropertyDefinition from './propertyDefinition';
+import EntityNeo4J from './entityNeo4j';
+import {LinkingTo} from './linkingTo';
 
 export class Linking {
     private node: PropertyDefinition<boolean>;
@@ -18,19 +18,18 @@ export class Linking {
 
 export interface LinkChain {
     node1: PropertyDefinition<boolean>;
-    link: PropertyDefinition<boolean>
+    link: PropertyDefinition<boolean>;
     node2: PropertyDefinition<boolean>;
 }
 
-
 export interface LinkResult {
     node: LinkResultEntity;
-    link: LinkResultEntity
+    link: LinkResultEntity;
     to: LinkResultEntity;
 }
 
 export interface LinkResultEntity {
     name: string;
-    id: number
+    id: number;
     value: EntityNeo4J;
 }

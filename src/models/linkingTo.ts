@@ -1,6 +1,6 @@
-import PropertyDefinition from "./propertyDefinition";
-import NodeNeo4J from "./nodeNeo4j";
-import { LinkChain } from "./linking";
+import PropertyDefinition from './propertyDefinition';
+import NodeNeo4J from './nodeNeo4j';
+import {LinkChain} from './linking';
 
 export class LinkingTo {
     private node: PropertyDefinition<boolean>;
@@ -12,6 +12,10 @@ export class LinkingTo {
     }
 
     to(n: NodeNeo4J, save: boolean = false): LinkChain {
-        return { node1: this.node, link: this.link, node2: new PropertyDefinition<boolean>(n, save) };
+        return {
+            node1: this.node,
+            link: this.link,
+            node2: new PropertyDefinition<boolean>(n, save),
+        };
     }
 }

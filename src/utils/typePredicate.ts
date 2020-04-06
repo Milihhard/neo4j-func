@@ -1,6 +1,6 @@
-import PropertyDefinition from "../models/propertyDefinition";
-import EntityNeo4J from "../models/entityNeo4j";
-import { AnyDefinition } from "../models/any";
+import PropertyDefinition from '../models/propertyDefinition';
+import EntityNeo4J from '../models/entityNeo4j';
+import {AnyDefinition} from '../models/any';
 export function isEntity(o: any): o is EntityNeo4J {
     return (o as EntityNeo4J).isEntity !== undefined;
 }
