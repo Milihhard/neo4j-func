@@ -1,5 +1,5 @@
-import PropertyDefinition from "./propertyDefinition";
-import GuidNeo4J from "../utils/neo4jGuid";
+import PropertyDefinition from './propertyDefinition';
+import GuidNeo4J from '../utils/neo4jGuid';
 
 export default abstract class EntityNeo4J {
     public _id: string;
@@ -38,7 +38,7 @@ export default abstract class EntityNeo4J {
 
     getProperties(): any {
         const props: any = {
-            id: this._id
+            id: this._id,
         };
         this.properties.forEach((value: any, key: string) => {
             props[key] = value;
@@ -49,9 +49,9 @@ export default abstract class EntityNeo4J {
     toString(): string {
         const propsToAdd: string[] = [];
         this.properties.forEach((value, key) => {
-            propsToAdd.push(`${key}: ${value}`)
+            propsToAdd.push(`${key}: ${value}`);
         });
-        return `{${propsToAdd.join(', ')}}`
+        return `{${propsToAdd.join(', ')}}`;
     }
 
     toJSON(): any {

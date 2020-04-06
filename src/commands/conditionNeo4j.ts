@@ -2,14 +2,16 @@ import Neo4jCommand from './commandsNeo4j';
 import GuidNeo4J from '../utils/neo4jGuid';
 import PropertyDefinition from '../models/propertyDefinition';
 
-
-
 export default class Neo4jCondition {
     private command: Neo4jCommand;
     private identifier: PropertyDefinition<string>;
     private word: string;
 
-    constructor(word: string, command: Neo4jCommand, identifier: PropertyDefinition<string>) {
+    constructor(
+        word: string,
+        command: Neo4jCommand,
+        identifier: PropertyDefinition<string>
+    ) {
         this.word = word;
         this.command = command;
         this.identifier = identifier;
@@ -32,5 +34,4 @@ export default class Neo4jCondition {
     private getStartCondition(): string {
         return `${this.word} ${this.identifier.getProperty()}`;
     }
-
 }

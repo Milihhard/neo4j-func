@@ -4,5 +4,5 @@ export default interface Neo4jConfig {
     credentials?: {
         user?: string;
         password?: string;
-    }
+    };
 }

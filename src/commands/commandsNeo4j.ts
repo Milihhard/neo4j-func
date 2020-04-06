@@ -3,18 +3,17 @@ import Neo4jCondition from './conditionNeo4j';
 import GuidNeo4J from '../utils/neo4jGuid';
 import PropertyDefinition from '../models/propertyDefinition';
 import Neo4jService from '../neo4j';
-import { Record } from 'neo4j-driver/types';
-import { Validator } from '../utils/validator';
+import {Record} from 'neo4j-driver/types';
+import {Validator} from '../utils/validator';
 import ReturnValue from './returnValue';
-import { LinkChain, LinkResult } from '../models/linking';
-import { isEntity, isPropertyDefinition, isAny } from '../utils/typePredicate';
+import {LinkChain, LinkResult} from '../models/linking';
+import {isEntity, isPropertyDefinition, isAny} from '../utils/typePredicate';
 import ReturnType from './returnType';
-import { ReturnTypeEnum } from '../enum/returnTypeEnum';
+import {ReturnTypeEnum} from '../enum/returnTypeEnum';
 import ReturnLabel from './returnLabel';
 import ReturnResult from './returnResult';
 import EntityNeo4J from '../models/entityNeo4j';
 import EntityFactory from '../models/entityFactory';
-
 
 export default class Neo4jCommand {
     private _args: any;
@@ -47,34 +46,57 @@ export default class Neo4jCommand {
         return new Neo4jCondition('AND', this, value);
     }
 
-    returnValue(value: PropertyDefinition<string> | NodeNeo4J | LinkChain, returnLabel?: string): Neo4jCommand {
+    returnValue(
+        value: PropertyDefinition<string> | NodeNeo4J | LinkChain,
+        returnLabel?: string
+    ): Neo4jCommand {
         if (isPropertyDefinition(value)) {
-            const rightLabel = returnLabel ? returnLabel : value.property
+            const rightLabel = returnLabel ? returnLabel : value.property;
             this.ret.push({
                 value: value.getProperty(),
-                label: rightLabel
+                label: rightLabel,
             });
-            this.returnLabels.push({ label: rightLabel, returnType: ReturnTypeEnum.PROPERTY });
+            this.returnLabels.push({
+                label: rightLabel,
+                returnType: ReturnTypeEnum.PROPERTY,
+            });
         } else if (isEntity(value)) {
-            const rightLabel = returnLabel ? returnLabel : (value as NodeNeo4J).entityName
+            const rightLabel = returnLabel
+                ? returnLabel
+                : (value as NodeNeo4J).entityName;
 
             this.ret.push({
                 value: (value as NodeNeo4J).guid,
-                label: rightLabel
+                label: rightLabel,
             });
-            this.returnLabels.push({ label: rightLabel, returnType: ReturnTypeEnum.NODE });
-
+            this.returnLabels.push({label: rightLabel, returnType: ReturnTypeEnum.NODE});
         } else {
             const linkChain = value as LinkChain;
-            const node1 = isAny(linkChain.node1.from) ? '' : this.isEntityUsed(linkChain.node1.from) ? linkChain.node1.from.guid : ':' + linkChain.node1.from.entityName;
-            const link = isAny(linkChain.link.from) ? '' : this.isEntityUsed(linkChain.link.from) ? linkChain.link.from.guid : ':' + linkChain.link.from.entityName;
-            const node2 = isAny(linkChain.node2.from) ? '' : this.isEntityUsed(linkChain.node2.from) ? linkChain.node2.from.guid : ':' + linkChain.node2.from.entityName;
-            const rightLabel = returnLabel ? returnLabel : (linkChain.node1.from.entityName + linkChain.link.from.entityName + linkChain.node2.from.entityName)
+            const node1 = isAny(linkChain.node1.from)
+                ? ''
+                : this.isEntityUsed(linkChain.node1.from)
+                ? linkChain.node1.from.guid
+                : ':' + linkChain.node1.from.entityName;
+            const link = isAny(linkChain.link.from)
+                ? ''
+                : this.isEntityUsed(linkChain.link.from)
+                ? linkChain.link.from.guid
+                : ':' + linkChain.link.from.entityName;
+            const node2 = isAny(linkChain.node2.from)
+                ? ''
+                : this.isEntityUsed(linkChain.node2.from)
+                ? linkChain.node2.from.guid
+                : ':' + linkChain.node2.from.entityName;
+            const rightLabel = returnLabel
+                ? returnLabel
+                : linkChain.node1.from.entityName +
+                  linkChain.link.from.entityName +
+                  linkChain.node2.from.entityName;
             this.ret.push({
                 value: `(${node1})-[${link}]->(${node2})`,
-                label: rightLabel
+                label: rightLabel,
             });
-            this.returnLabels.push({ label: rightLabel, returnType: ReturnTypeEnum.LINK });
+            this.returnLabels.push({label: rightLabel, returnType: ReturnTypeEnum.LINK});
         }
         return this;
     }
@@ -84,47 +106,61 @@ export default class Neo4jCommand {
             const node = value as NodeNeo4J;
             const validRes = Validator.validate(node);
             if (!validRes.valid) {
-                this.errors.push(`${node.entityName} not valid. Error on: ${validRes.property}`);
+                this.errors.push(
+                    `${node.entityName} not valid. Error on: ${validRes.property}`
+                );
             }
-            const commandToAdd = `CREATE (${node.guid}:${node.entityName}${this.writeProperties(node)})`
+            const commandToAdd = `CREATE (${node.guid}:${
+                node.entityName
+            }${this.writeProperties(node)})`;
             this._command.push(commandToAdd);
         } else {
             const linkChain = value as LinkChain;
             if (linkChain.node1.property) {
                 const validRes = Validator.validate(linkChain.node1.from);
                 if (!validRes.valid) {
-                    this.errors.push(`${linkChain.node1.from.entityName} not valid. Error on: ${validRes.property}`);
+                    this.errors.push(
+                        `${linkChain.node1.from.entityName} not valid. Error on: ${validRes.property}`
+                    );
                 }
             }
             if (linkChain.node2.property) {
                 const validRes = Validator.validate(linkChain.node2.from);
                 if (!validRes.valid) {
-                    this.errors.push(`${linkChain.node2.from.entityName} not valid. Error on: ${validRes.property}`);
+                    this.errors.push(
+                        `${linkChain.node2.from.entityName} not valid. Error on: ${validRes.property}`
+                    );
                 }
             }
             if (linkChain.link.property) {
                 const validRes = Validator.validate(linkChain.link.from);
                 if (!validRes.valid) {
-                    this.errors.push(`${linkChain.link.from.entityName} not valid. Error on: ${validRes.property}`);
+                    this.errors.push(
+                        `${linkChain.link.from.entityName} not valid. Error on: ${validRes.property}`
+                    );
                 }
             }
 
-            let commandToAdd = `CREATE (${linkChain.node1.from.guid}`
+            let commandToAdd = `CREATE (${linkChain.node1.from.guid}`;
             if (linkChain.node1.property) {
-                commandToAdd += `:${linkChain.node1.from.entityName}${this.writeProperties(linkChain.node1.from)}`;
+                commandToAdd += `:${
+                    linkChain.node1.from.entityName
+                }${this.writeProperties(linkChain.node1.from)}`;
             }
-            commandToAdd += `)-[${linkChain.link.from.guid}`
+            commandToAdd += `)-[${linkChain.link.from.guid}`;
             if (linkChain.link.property) {
-                commandToAdd += `:${linkChain.link.from.entityName}${this.writeProperties(linkChain.link.from)}`;
+                commandToAdd += `:${linkChain.link.from.entityName}${this.writeProperties(
+                    linkChain.link.from
+                )}`;
             }
-            commandToAdd += `]->(${linkChain.node2.from.guid}`
+            commandToAdd += `]->(${linkChain.node2.from.guid}`;
             if (linkChain.node2.property) {
-                commandToAdd += `:${linkChain.node2.from.entityName}${this.writeProperties(linkChain.node2.from)}`;
+                commandToAdd += `:${
+                    linkChain.node2.from.entityName
+                }${this.writeProperties(linkChain.node2.from)}`;
             }
             commandToAdd += ')';
             this._command.push(commandToAdd);
-
-
         }
         return this;
     }
@@ -134,7 +170,7 @@ export default class Neo4jCommand {
         entity.properties.forEach((value, key) => {
             if (value) {
                 const g = GuidNeo4J.create();
-                let prop = `${key}: `
+                let prop = `${key}: `;
                 if (value instanceof Date) {
                     prop += `datetime($${g})`;
                     this._args[g] = (value as Date).toISOString();
@@ -154,32 +190,43 @@ export default class Neo4jCommand {
                 reject(this.errors);
             });
         }
-        return Neo4jService.getInstance().runCommand(this.command, this.args).then(queryResult => {
-            return {
-                records: queryResult.records.map(r => {
-                    const returnValue: ReturnLabel = {};
-                    this.returnLabels
-                        .forEach((returnLabel) => {
-                            returnValue[returnLabel.label] = this.getRightReturn(r, returnLabel);
+        return Neo4jService.getInstance()
+            .runCommand(this.command, this.args)
+            .then((queryResult) => {
+                return {
+                    records: queryResult.records.map((r) => {
+                        const returnValue: ReturnLabel = {};
+                        this.returnLabels.forEach((returnLabel) => {
+                            returnValue[returnLabel.label] = this.getRightReturn(
+                                r,
+                                returnLabel
+                            );
                         });
-                    return returnValue;
-                }),
-                summary: queryResult.summary,
-            }
-        });
+                        return returnValue;
+                    }),
+                    summary: queryResult.summary,
+                };
+            });
     }
-    logCommand(): {command: string, args: any} {
+    logCommand(): {command: string; args: any} {
         return {
             command: this.command,
-            args: this.args
+            args: this.args,
         };
     }
 
-    private getRightReturn(record: Record, returnLabel: ReturnType): string | EntityNeo4J | LinkResult {
+    private getRightReturn(
+        record: Record,
+        returnLabel: ReturnType
+    ): string | EntityNeo4J | LinkResult {
         const data: any = record.get(returnLabel.label);
         switch (returnLabel.returnType) {
             case ReturnTypeEnum.NODE:
-                const instance = EntityFactory.createInstance(data.labels[0], data.identity.low, data.properties);
+                const instance = EntityFactory.createInstance(
+                    data.labels[0],
+                    data.identity.low,
+                    data.properties
+                );
                 return instance;
             case ReturnTypeEnum.LINK:
                 const segment = data[0].segments[0];
@@ -188,17 +235,29 @@ export default class Neo4jCommand {
                     node: {
                         name: segment.start.labels[0],
                         id: segment.start.identity.low,
-                        value: EntityFactory.createInstance(segment.start.labels[0], segment.start.identity.low, segment.start.properties)
+                        value: EntityFactory.createInstance(
+                            segment.start.labels[0],
+                            segment.start.identity.low,
+                            segment.start.properties
+                        ),
                     },
                     link: {
                         name: segment.relationship.type,
                         id: segment.relationship.identity.low,
-                        value: EntityFactory.createInstance(segment.relationship.type, segment.relationship.identity.low, segment.relationship.properties)
+                        value: EntityFactory.createInstance(
+                            segment.relationship.type,
+                            segment.relationship.identity.low,
+                            segment.relationship.properties
+                        ),
                     },
                     to: {
                         name: segment.end.labels[0],
                         id: segment.end.identity.low,
-                        value: EntityFactory.createInstance(segment.end.labels[0], segment.end.identity.low, segment.end.properties)
+                        value: EntityFactory.createInstance(
+                            segment.end.labels[0],
+                            segment.end.identity.low,
+                            segment.end.properties
+                        ),
                     },
                 };
                 break;
@@ -210,7 +269,12 @@ export default class Neo4jCommand {
     get command(): string {
         let toReturn = this._command.join(this.separator);
         if (this.ret.length > 0) {
-            toReturn += this.separator + 'RETURN ' + this.ret.map(r => `${r.value}${r.label ? ` as ${r.label}` : ''}`).join(', ');
+            toReturn +=
+                this.separator +
+                'RETURN ' +
+                this.ret
+                    .map((r) => `${r.value}${r.label ? ` as ${r.label}` : ''}`)
+                    .join(', ');
         }
         return toReturn;
     }
@@ -244,13 +308,19 @@ export default class Neo4jCommand {
     }
 
     private linkChainToString(linkChain: LinkChain): string {
-        const node1 = isAny(linkChain.node1.from) ? '' : `${linkChain.node1.from.guid}:${linkChain.node1.from.entityName}`;
-        const link = isAny(linkChain.link.from) ? '' : `${linkChain.link.from.guid}:${linkChain.link.from.entityName}`;
-        const node2 = isAny(linkChain.node2.from) ? '' : `${linkChain.node2.from.guid}:${linkChain.node2.from.entityName}`;
+        const node1 = isAny(linkChain.node1.from)
+            ? ''
+            : `${linkChain.node1.from.guid}:${linkChain.node1.from.entityName}`;
+        const link = isAny(linkChain.link.from)
+            ? ''
+            : `${linkChain.link.from.guid}:${linkChain.link.from.entityName}`;
+        const node2 = isAny(linkChain.node2.from)
+            ? ''
+            : `${linkChain.node2.from.guid}:${linkChain.node2.from.entityName}`;
         return `(${node1})-[${link}]->(${node2})`;
     }
 
     private isEntityUsed(entity: EntityNeo4J): boolean {
-        return !!this.entityUsed.find(e => e === entity.guid);
+        return !!this.entityUsed.find((e) => e === entity.guid);
     }
 }

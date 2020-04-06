@@ -1,13 +1,11 @@
-
 import * as neo4jModule from 'neo4j-driver';
-import { Driver, QueryResult } from 'neo4j-driver/types/';
+import {Driver, QueryResult} from 'neo4j-driver/types/';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import Neo4jConfig from './config/config';
 import _ from 'lodash';
 
 const neo4j = neo4jModule;
-
 
 export default class Neo4jService {
     driver: Driver;
@@ -19,18 +17,27 @@ export default class Neo4jService {
         let configCustom: Neo4jConfig;
         let configDefault: Neo4jConfig;
         try {
-            configCustom = yaml.safeLoad(fs.readFileSync(process.cwd() + '/neo4j.yaml', 'utf8'))
+            configCustom = yaml.safeLoad(
+                fs.readFileSync(process.cwd() + '/neo4j.yaml', 'utf8')
+            );
         } catch (e) {
             configCustom = {};
         }
         try {
-            configDefault = yaml.safeLoad(fs.readFileSync(__dirname + '/config/neo4j-default.yaml', 'utf8'));
+            configDefault = yaml.safeLoad(
+                fs.readFileSync(__dirname + '/config/neo4j-default.yaml', 'utf8')
+            );
         } catch (e) {
             throw new Error(e);
         }
         this.config = _.merge(configDefault, configCustom);
-        this.driver = neo4j.driver(`bolt://${this.config.host}:${this.config.port}`,
-        neo4j.auth.basic(this.config.credentials.user, this.config.credentials.password));
+        this.driver = neo4j.driver(
+            `bolt://${this.config.host}:${this.config.port}`,
+            neo4j.auth.basic(
+                this.config.credentials.user,
+                this.config.credentials.password
+            )
+        );
     }
 
     runCommand(command: string, attribute: any): Promise<QueryResult> {
@@ -39,13 +46,15 @@ export default class Neo4jService {
         //     'CREATE (a:Person {name: $name}) RETURN a',
         //     { name: personName }
         // );
-        const resultPromise = session.run(command, attribute)
+        const resultPromise = session.run(command, attribute);
 
-        return resultPromise.then((result: any) => {
-            return result;
-        }).finally(() => {
-            session.close();
-        });
+        return resultPromise
+            .then((result: any) => {
+                return result;
+            })
+            .finally(() => {
+                session.close();
+            });
     }
 
     closeNeo4j(): void {
